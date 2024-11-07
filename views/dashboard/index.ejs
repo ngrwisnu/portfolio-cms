@@ -1,5 +1,17 @@
 <%- include('../partials/header.ejs') %>
-<section>
-  <h1>Dashboard</h1>
+<section class="wrapper dashboard">
+  <div class="wrapper-content">
+    <form action="">
+      <div class="resume">
+        <div class="label">
+          <h4>Resume / CV</h4>
+        </div>
+        <div class="content">
+          <input type="file" />
+        </div>
+      </div>
+      <button type="submit" data-submitFor="dashboard">Save</button>
+    </form>
+  </div>
 </section>
 <%- include('../partials/footer.ejs') %>
