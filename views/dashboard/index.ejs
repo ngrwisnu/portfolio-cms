@@ -1,13 +1,17 @@
 <%- include('../partials/meta.ejs') %> <%- include('../partials/header.ejs') %>
 <section class="wrapper dashboard">
   <div class="wrapper-content">
-    <form action="">
+    <form
+      method="POST"
+      action="/dashboard/update/portfolio?_method=PUT"
+      enctype="multipart/form-data"
+    >
       <div class="resume">
         <div class="label">
           <h4>Resume / CV</h4>
         </div>
         <div class="content">
-          <input type="file" />
+          <input type="file" id="resume" name="resume" accept=".pdf" />
         </div>
       </div>
       <button type="submit" data-submitFor="dashboard">Save</button>
