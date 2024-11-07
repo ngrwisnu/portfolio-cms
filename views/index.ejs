@@ -1,3 +1,17 @@
 <%- include('./partials/header.ejs') %>
-    <h1><%= heading %></h1>
+<section class="wrapper login">
+  <div>
+    <form action="">
+      <div class="form-control email">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required />
+      </div>
+      <div class="form-control password">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required />
+      </div>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</section>
 <%- include('./partials/footer.ejs') %>
