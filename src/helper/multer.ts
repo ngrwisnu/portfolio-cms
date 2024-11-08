@@ -1,3 +1,4 @@
+import * as multer from 'multer';
 import * as path from 'path';
 
 export const isFileTypeValid = (
@@ -15,3 +16,12 @@ export const isFileTypeValid = (
     cb(new Error('File is not valid!'));
   }
 };
+
+export const publicStorage = multer.diskStorage({
+  destination: 'public/docs',
+  filename: (req, file, cb) => {
+    const filename = file.originalname.split('.')[0];
+
+    cb(null, `${filename}_${Date.now()}.pdf`);
+  },
+});
