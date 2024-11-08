@@ -10,9 +10,12 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { isFileTypeValid, publicStorage } from 'src/helper/multer';
+import { DashboardService } from './dashboard/dashboard.service';
 
 @Controller('dashboard')
 export class DashboardController {
+  constructor(private dashboardService: DashboardService) {}
+
   @Get()
   @Render('dashboard/index.ejs')
   async viewDashboard() {}
@@ -32,6 +35,11 @@ export class DashboardController {
     @Res() res: Response,
   ) {
     console.log(file);
-    res.redirect('/dashboard');
+
+    const result = await this.dashboardService.add(file.filename);
+
+    res.status(201).json({
+      message: result.message,
+    });
   }
 }
