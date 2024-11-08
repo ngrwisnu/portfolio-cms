@@ -1,5 +1,13 @@
-import { Controller, Get, Put, Render, Res } from '@nestjs/common';
-import { Response } from 'express';
+import {
+  Controller,
+  Get,
+  Put,
+  Render,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { isFileTypeValid } from 'src/helper/isFileTypeValid';
 
 @Controller('dashboard')
 export class DashboardController {
@@ -8,9 +16,15 @@ export class DashboardController {
   async viewDashboard() {}
 
   @Put('update/portfolio')
-  async updatePortfolio(@Res() res: Response) {
-    res.status(200).json({
-      message: 'OK',
-    });
+  @UseInterceptors(
+    FileInterceptor('resume', {
+      limits: { fileSize: 1.5 * 1024 * 1024 },
+      fileFilter: (req, file: Express.Multer.File, cb) => {
+        isFileTypeValid(file, cb);
+      },
+    }),
+  )
+  async updatePortfolio(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
   }
 }
