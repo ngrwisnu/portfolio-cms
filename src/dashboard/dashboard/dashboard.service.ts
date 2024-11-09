@@ -10,4 +10,14 @@ export class DashboardService {
 
     return res;
   }
+
+  async get(): Promise<{ [key: string]: string }> {
+    const res = await this.storageService.get();
+
+    return res;
+  }
+
+  async remove(filename: string) {
+    await this.storageService.delete(filename);
+  }
 }

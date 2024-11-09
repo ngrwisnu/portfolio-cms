@@ -34,7 +34,13 @@ export class DashboardController {
     @UploadedFile() file: Express.Multer.File,
     @Res() res: Response,
   ) {
-    console.log(file);
+    const prevFile = await this.dashboardService.get();
+    console.log(prevFile);
+
+    if (prevFile.filename) {
+      console.log('HIT!!');
+      await this.dashboardService.remove(prevFile.filename);
+    }
 
     const result = await this.dashboardService.add(file.filename);
 
