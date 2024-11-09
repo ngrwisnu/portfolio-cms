@@ -18,7 +18,14 @@ export class DashboardController {
 
   @Get()
   @Render('dashboard/index.ejs')
-  async viewDashboard() {}
+  async viewDashboard() {
+    const { filename } = await this.dashboardService.get();
+
+    return {
+      filename: filename || 'No data found',
+      resumeURL: `/docs/${filename || ''}`,
+    };
+  }
 
   @Put('update/portfolio')
   @UseInterceptors(
