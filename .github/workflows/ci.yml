@@ -23,3 +23,6 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/cms:latest
+          secrets: |
+            "project_id=${{ secrets.PROJECT_ID }}"
+            "database_url=${{ secrets.DATABASE_URL }}"
