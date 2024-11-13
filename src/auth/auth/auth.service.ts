@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import AuthRepository from 'src/Domains/auth/auth.repository';
-import RegisteredUser from 'src/Domains/auth/entity/registered-user.dto';
+import { LoggedInUser, RegisteredUser } from 'src/Domains/auth/entity/auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -10,5 +10,12 @@ export class AuthService {
     const user = await this.authRepository.signup(email, password);
 
     return new RegisteredUser(user);
+  }
+
+  async login(email: string, password: string): Promise<LoggedInUser> {
+    const user = await this.authRepository.login(email, password);
+    const tk = await user.getIdToken();
+
+    return new LoggedInUser(user, tk);
   }
 }
