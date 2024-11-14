@@ -1,22 +1,28 @@
 import {
   Controller,
   Get,
+  Post,
   Put,
+  Redirect,
   Render,
+  Req,
   Res,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { isFileTypeValid, publicStorage } from 'src/helper/multer';
 import { DashboardService } from './dashboard/dashboard.service';
+import { AuthGuard } from 'src/auth/auth/auth.guard';
 
 @Controller('dashboard')
 export class DashboardController {
   constructor(private dashboardService: DashboardService) {}
 
   @Get()
+  @UseGuards(AuthGuard)
   @Render('dashboard/index.ejs')
   async viewDashboard() {
     const { filename } = await this.dashboardService.get();
@@ -42,10 +48,8 @@ export class DashboardController {
     @Res() res: Response,
   ) {
     const prevFile = await this.dashboardService.get();
-    console.log(prevFile);
 
     if (prevFile.filename) {
-      console.log('HIT!!');
       await this.dashboardService.remove(prevFile.filename);
     }
 
@@ -53,6 +57,16 @@ export class DashboardController {
 
     res.status(201).json({
       message: result.message,
+    });
+  }
+
+  @Post('logout')
+  @Redirect('login')
+  logout(@Req() req: Request) {
+    req.session.destroy((err) => {
+      if (err) {
+        console.log(err);
+      }
     });
   }
 }
