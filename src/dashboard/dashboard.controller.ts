@@ -61,7 +61,7 @@ export class DashboardController {
   }
 
   @Post('logout')
-  @Redirect('login')
+  @Redirect('/login')
   logout(@Req() req: Request) {
     req.session.destroy((err) => {
       if (err) {
