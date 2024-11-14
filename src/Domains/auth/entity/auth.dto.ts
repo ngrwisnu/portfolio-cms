@@ -23,11 +23,9 @@ export class RegisteredUser {
 export class LoggedInUser {
   uid: string;
   email: string;
-  accessToken: string;
 
-  constructor(user: User, token: string) {
+  constructor(user: User) {
     this.uid = user.uid;
     this.email = user.email;
-    this.accessToken = token;
   }
 }

@@ -14,8 +14,7 @@ export class AuthService {
 
   async login(email: string, password: string): Promise<LoggedInUser> {
     const user = await this.authRepository.login(email, password);
-    const tk = await user.getIdToken();
 
-    return new LoggedInUser(user, tk);
+    return new LoggedInUser(user);
   }
 }
