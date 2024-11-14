@@ -1,5 +1,14 @@
-import { Body, Controller, Get, Post, Render, Res } from '@nestjs/common';
-import { Response } from 'express';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Redirect,
+  Render,
+  Req,
+  Res,
+} from '@nestjs/common';
+import { Request, Response } from 'express';
 import { LoginDto, SignUpDto } from 'src/Domains/auth/entity/auth.dto';
 import { AuthService } from './auth/auth.service';
 
@@ -14,12 +23,12 @@ export class AuthController {
   }
 
   @Post('login')
-  async login(@Body() body: LoginDto, @Res() res: Response) {
+  @Redirect('dashboard')
+  async login(@Body() body: LoginDto, @Req() req: Request) {
     const result = await this.authService.login(body.email, body.password);
 
-    res.status(200).json({
-      data: result,
-    });
+    // @ts-expect-error should be able to set user session
+    req.session.user = result;
   }
 
   @Post('signup')

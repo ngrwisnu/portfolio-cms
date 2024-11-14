@@ -5,18 +5,21 @@ import {
   Render,
   Res,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { isFileTypeValid, publicStorage } from 'src/helper/multer';
 import { DashboardService } from './dashboard/dashboard.service';
+import { AuthGuard } from 'src/auth/auth/auth.guard';
 
 @Controller('dashboard')
 export class DashboardController {
   constructor(private dashboardService: DashboardService) {}
 
   @Get()
+  @UseGuards(AuthGuard)
   @Render('dashboard/index.ejs')
   async viewDashboard() {
     const { filename } = await this.dashboardService.get();
