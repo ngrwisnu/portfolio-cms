@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -33,7 +33,7 @@ class AuthRepositoryFirebase extends AuthRepository {
 
       return response.user;
     } catch (error) {
-      console.error(error.message);
+      throw new BadRequestException(error.message);
     }
   }
 }

@@ -33,10 +33,6 @@ export class AuthController {
 
   @Post('signup')
   async signup(@Body() body: SignUpDto, @Res() res: Response) {
-    const result = await this.authService.signup(body.email, body.password);
-
-    res.status(201).json({
-      data: result,
-    });
+    res.redirect('/login');
   }
 }
