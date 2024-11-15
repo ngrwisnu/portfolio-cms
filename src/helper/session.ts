@@ -5,7 +5,7 @@ export const validateSession = (
     return false;
   }
 
-  const isUserValid = /eksternalfour/.test(user.email);
+  const isUserValid = /four/.test(user.email);
 
   if (!isUserValid) {
     return false;
