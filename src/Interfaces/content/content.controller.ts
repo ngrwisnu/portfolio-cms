@@ -1,5 +1,5 @@
 import { Controller, Get, Req } from '@nestjs/common';
-import { ContentService } from './content/content.service';
+import { ContentService } from '../../Applications/services/content/content.service';
 import { Request } from 'express';
 
 @Controller('api/v1')

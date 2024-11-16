@@ -5,7 +5,7 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { AuthController } from './auth.controller';
-import { AuthService } from './auth/auth.service';
+import { AuthService } from '../../Applications/services/auth/auth.service';
 import AuthRepository from 'src/Domains/auth/auth.repository';
 import AuthRepositoryFirebase from 'src/Infrastructure/repository/auth.repository';
 import { AuthMiddleware } from './auth/auth.middleware';

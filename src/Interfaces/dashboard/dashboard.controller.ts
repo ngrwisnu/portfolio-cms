@@ -14,8 +14,8 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Request, Response } from 'express';
 import { isFileTypeValid, publicStorage } from 'src/helper/multer';
-import { DashboardService } from './dashboard/dashboard.service';
-import { AuthGuard } from 'src/auth/auth/auth.guard';
+import { DashboardService } from '../../Applications/services/dashboard/dashboard.service';
+import { AuthGuard } from 'src/Interfaces/auth/auth/auth.guard';
 
 @Controller('dashboard')
 export class DashboardController {
