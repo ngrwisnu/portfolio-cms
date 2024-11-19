@@ -1,13 +1,13 @@
 import StorageRepository from '../../../Domains/storage/storage.repository';
 import { DashboardService } from './dashboard.service';
 
-class MockStorageRepository extends StorageRepository<string> {
-  add = jest.fn().mockImplementation(() => Promise.resolve({ status: 'ok' }));
-  get = jest.fn();
-  delete = jest.fn();
-}
-
 describe('DashboardService', () => {
+  class MockStorageRepository extends StorageRepository<string> {
+    add = jest.fn().mockImplementation(() => Promise.resolve({ status: 'ok' }));
+    get = jest.fn();
+    delete = jest.fn();
+  }
+
   let storageRepository: MockStorageRepository;
   let dashboardService: DashboardService;
 
