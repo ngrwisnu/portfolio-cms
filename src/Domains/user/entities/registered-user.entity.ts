@@ -4,7 +4,7 @@ export class RegisteredUser {
   id: string;
   email: string;
 
-  constructor(payload: RegisteredUser) {
+  constructor(payload: IRegisteredUser) {
     this.verifyPayload(payload);
 
     this.id = payload.id;
