@@ -61,6 +61,14 @@
     "typescript": "^5.1.3"
   },
   "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 50,
+        "functions": 50,
+        "lines": 50,
+        "statements": 50
+      }
+    },
     "moduleFileExtensions": [
       "js",
       "json",
