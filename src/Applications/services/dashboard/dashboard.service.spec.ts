@@ -1,13 +1,13 @@
 import StorageRepository from '../../../Domains/storage/storage.repository';
 import { DashboardService } from './dashboard.service';
 
-class MockStorageRepository extends StorageRepository<string> {
-  add = jest.fn().mockImplementation(() => Promise.resolve({ status: 'ok' }));
-  get = jest.fn();
-  delete = jest.fn();
-}
-
 describe('DashboardService', () => {
+  class MockStorageRepository extends StorageRepository<string> {
+    add = jest.fn().mockImplementation(() => Promise.resolve({ status: 'ok' }));
+    get = jest.fn().mockImplementation(() => Promise.resolve({ status: 'ok' }));
+    delete = jest.fn();
+  }
+
   let storageRepository: MockStorageRepository;
   let dashboardService: DashboardService;
 
@@ -16,21 +16,29 @@ describe('DashboardService', () => {
     dashboardService = new DashboardService(storageRepository);
   });
 
-  it('should call the add method from storage repository', async () => {
-    await dashboardService.add('');
+  describe('add method', () => {
+    it('should return the correct output', async () => {
+      const result = await dashboardService.add('');
 
-    expect(storageRepository.add).toHaveBeenCalledTimes(1);
+      expect(storageRepository.add).toHaveBeenCalledTimes(1);
+      expect(result).toStrictEqual({ status: 'ok' });
+    });
   });
 
-  it('should call the get method from storage repository', async () => {
-    await dashboardService.get();
+  describe('get method', () => {
+    it('should return the correct output', async () => {
+      const result = await dashboardService.get();
 
-    expect(storageRepository.get).toHaveBeenCalledTimes(1);
+      expect(storageRepository.get).toHaveBeenCalledTimes(1);
+      expect(result).toStrictEqual({ status: 'ok' });
+    });
   });
 
-  it('should call the remove method from storage repository', async () => {
-    await dashboardService.remove('');
+  describe('remove method', () => {
+    it('should call the delete method from storage repository', async () => {
+      await dashboardService.remove('');
 
-    expect(storageRepository.delete).toHaveBeenCalledTimes(1);
+      expect(storageRepository.delete).toHaveBeenCalledTimes(1);
+    });
   });
 });

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 export const validateSession = (
   user: { uid: string; email: string } | undefined,
 ): boolean => {

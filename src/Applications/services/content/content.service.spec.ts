@@ -1,18 +1,29 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import StorageRepository from 'src/Domains/storage/storage.repository';
 import { ContentService } from './content.service';
 
 describe('ContentService', () => {
-  let service: ContentService;
+  class MockStorageRepository extends StorageRepository<string> {
+    add = jest.fn();
+    get = jest
+      .fn()
+      .mockImplementation(() =>
+        Promise.resolve({ message: 'response message' }),
+      );
+    delete = jest.fn();
+  }
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [ContentService],
-    }).compile();
+  let storageRepository: MockStorageRepository;
+  let contentService: ContentService;
 
-    service = module.get<ContentService>(ContentService);
+  beforeEach(() => {
+    storageRepository = new MockStorageRepository();
+    contentService = new ContentService(storageRepository);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  it('should invoke method get from storage repository', async () => {
+    const res = await contentService.get();
+
+    expect(storageRepository.get).toHaveBeenCalledTimes(1);
+    expect(res).toStrictEqual({ message: 'response message' });
   });
 });
